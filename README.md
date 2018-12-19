@@ -6,7 +6,7 @@ What
 ----
 
 Create tags programatically and write an HTML-file of them.
-Ment for serve-side pre-rendering, could also be used for client-
+Ment for server-side pre-rendering, could also be used for client-
 side rendering.
 
 
@@ -44,12 +44,12 @@ At any point Tags can be rendered:
 
 Printing the result with `console.log(html)`, should now give:
 
-`<div class="taggy" id="root-tag">
-   <div>
-     Some text for the child
-   </div>
- </div>
-`
+    <div class="taggy" id="root-tag">
+       <div>
+         Some text for the child
+       </div>
+     </div>
+
 Now we have a snippet for re-use, but what about templates?
 
 A class Doc is an extension of Tag and is initialized with a
@@ -76,40 +76,40 @@ At any point Docs can be written like this:
 That'll create or overwrite a file in the given path 'frontend/templates/main.html'
 with the following content:
 
-<!doctype html>
-<html lang="en-gb">
-  <head>
-    <title>
-      Main
-    </title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="frontend/styles/main.css">
-    <script src="frontend/scripts/main.js" defer></script>
-    <script src="frontend/scripts/fancy.js" defer></script>
-  </head>
-  <body>
-	<h1>
-	  Hello screen!
-	</h1>
-  </body>
-</html>
+    <!doctype html>
+    <html lang="en-gb">
+      <head>
+        <title>
+          Main
+        </title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="frontend/styles/main.css">
+        <script src="frontend/scripts/main.js" defer></script>
+        <script src="frontend/scripts/fancy.js" defer></script>
+      </head>
+      <body>
+        <h1>
+          Hello screen!
+        </h1>
+      </body>
+    </html>
 
 As you may have noticed, some sensible defaults are set, e.g.
 the language, title and character-decoding. In case you want
 to change these or access any Tag-object from a Tag-object,
 one can walk the tree like this:
 
-	tag.goUp() // tag is now parent
+	tag = tag.goUp() // tag is now parent
 
-	tag.goNext() // tag is now next sibling
+	tag = tag.goNext() // tag is now next sibling
 
-	tag.goPrev(2) // tag is now second-previous sibling
+	tag = tag.goPrev(2) // tag is now second-previous sibling
 
-	tag.goDown() // tag is now first-child
+	tag = tag.goDown() // tag is now first-child
 
-	tag.goDown(-1) // tag is now last-child
+	tag = tag.goDown(-1) // tag is now last-child
 
-	tag.goDown(3) // tag is now third child
+	tag = tag.goDown(3) // tag is now third child
 
 
 Back to our example, if we'd want to change the lang-attr
@@ -128,15 +128,15 @@ would look something like:
 
 	const isLoggedIn = getLoginStateAsBoolean()
 
-	const list = doc.body.addTag('ul')
 
 	if(isLoggedIn) {
+	  const list = doc.body.addTag('ul')
 	  for(let i in data) {
 	    list.addTag('li', {}, data[i])
 	  }
 	}
     else {
-      list.content = 'Please log in to read the data.'
+	  doc.body.addTag('a', { href: 'login'}, 'Please log in for reading data.')
     }
 
 
