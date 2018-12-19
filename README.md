@@ -6,8 +6,8 @@ What
 ----
 
 Create tags programatically and write an HTML-file of them.
-Ment for server-side pre-rendering, could also be used for client-
-side rendering.
+Ment for server-side pre-rendering, meaning the HTML-files
+are written initially and when data changes.
 
 
 Why
@@ -27,14 +27,14 @@ How
 ---
 
 
-A class Tag represents a template-element and has the properties
+Thw class Tag represents an HTML-element and has the properties
 "tagName", "attr" and "content", we can create a tag like this:
 
-    const Tag = require('templata').Tag
+    const Tag = require('templati').Tag
 
     let tag = new Tag('div', { class: 'taggy', 'id': 'root-tag' })
 
-And add child-tags in it, like this:
+And add child-tags in it, like this, passing tag-properties:
 
     let child = tag.addTag('div', {}, 'Some text for the child')
 
@@ -50,12 +50,14 @@ Printing the result with `console.log(html)`, should now give:
        </div>
      </div>
 
+
+
 Now we have a snippet for re-use, but what about templates?
 
 A class Doc is an extension of Tag and is initialized with a
-template-path, and optionally CSS- and JS-paths:
+template-path and optionally CSS- and JS-paths:
 
-    const Doc = require('templata').Doc
+    const Doc = require('templati').Doc
  
     let doc = new Doc(
       'frontend/templates/main.html',
@@ -64,14 +66,14 @@ template-path, and optionally CSS- and JS-paths:
 	);
 
 
-It has the properties 'head' and 'body' for quick-access, both are
-of class Tag, let's add some content:
+It has the property 'body' for quick-access of the body-tag,
+let's add some content:
 
 	doc.body.addTag('h1', {}, 'Hello screen!')
 
 At any point Docs can be written like this:
 
-	doc.writeHtml()
+	doc.writeDoc()
 
 That'll create or overwrite a file in the given path 'frontend/templates/main.html'
 with the following content:
@@ -119,10 +121,9 @@ in html-tag, we can do:
 	htmlTag.attr.lang = 'es'
 
 
-Finally let's do an example with some logical-operations,
-let's say you have some data of known structure, e.g. an
-array of items and you want to apply some conditions, it
-would look something like:
+Finally let's do some logical-operations, let's say you
+have some data of known structure, e.g. an array of items
+and you want to apply some conditions, it could look like:
 
 	const data = hereComesTheDataFromSomewhereOutOfTheBlue()
 
@@ -140,11 +141,12 @@ would look something like:
     }
 
 
+
 Issue tracker
 -------------
 
-For questions, bug-reports and towel-returns, please open an issue
-on https://github.com/ida/templata/issues/new
+For questions, bug-reports and towel-returns, feel free to open an issue
+on https://github.com/ida/templati/issues/new
 
 
 Author

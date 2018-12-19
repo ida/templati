@@ -28,7 +28,9 @@ function ini(doc, stylePaths, scriptPaths) {
   }
 
   for(let i in scriptPaths) {
-    doc.content[0].content[0].addTag('script', { src: scriptPaths[i] } )
+    doc.content[0].content[0].addTag('script', {
+      src: scriptPaths[i]
+    });
   }
 
   return tag.addTag('body')
