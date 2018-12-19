@@ -239,11 +239,6 @@ class Tag {
   }
 
 
-  toJson() {
-    return JSON.stringify(this)
-  }
-
-
   toHtml(currentIndent='', indent='  ') {
     return tagToHtml(this, currentIndent, indent)
   }
@@ -253,10 +248,6 @@ class Tag {
     tagToHtmlFile(this, filePath)
   }
 
-
-  writeJson(path) {
-    fs.writeFileSync(path, this.toJson()); console.log('Wrote', path)
-  }
 
 }
 

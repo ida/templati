@@ -3,13 +3,9 @@ const Tag = require('./tag').Tag
 
 function ini(doc) {
 
-  if(doc.filePath.endsWith('.html')) { // remove extension
-    doc.filePath = doc.filePath.slice(0, 5)
-  }
-
   let name = doc.filePath.split('/') // get everything after last slash
   name = name[name.length-1]
-  name = name.split('.')[0]
+  name = name.split('.')[0] // remove extension
   name = name[0].toUpperCase() + name.slice(1) // uppercase name
 
 
@@ -63,12 +59,9 @@ class Doc extends Tag {
     );
   }
 
-  writeConfig() {
-    this.writeJson(this.filePath + '.json')
-  }
 
   writeDoc() {
-    this.writeHtml(this.filePath + '.html')
+    this.writeHtml(this.filePath)
   }
 
 }
