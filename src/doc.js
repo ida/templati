@@ -1,7 +1,7 @@
 const Tag = require('./tag').Tag
 
 
-function ini(doc) {
+function ini(doc, stylePaths, scriptPaths) {
 
   let name = doc.filePath.split('/') // get everything after last slash
   name = name[name.length-1]
@@ -19,12 +19,16 @@ function ini(doc) {
 
   tag = doc.content[0]
 
-  for(let i in doc.stylePaths) {
-    doc.addStyleSheet(doc.scriptPaths[i])
+  for(let i in stylePaths) {
+    doc.content[0].content[0].addTag('link', {
+      href: stylePaths[i],
+      type: 'text/css',
+      rel: 'stylesheet'
+    });
   }
 
-  for(let i in doc.scriptPaths) {
-    doc.addScriptFile( doc.scriptPaths[i])
+  for(let i in scriptPaths) {
+    doc.content[0].content[0].addTag('script', { src: scriptPaths[i] } )
   }
 
   return tag.addTag('body')
@@ -35,28 +39,13 @@ function ini(doc) {
 
 class Doc extends Tag {
 
-  constructor(filePath='untitled', stylePaths=[], scriptPaths=[]) {
+  constructor(filePath, stylePaths=[], scriptPaths=[]) {
 
     super('!doctype', { html: true })
 
     this.filePath = filePath
-    this.stylePaths = stylePaths
-    this.scriptPaths = scriptPaths
-    this.body = ini(this)
+    this.body = ini(this, stylePaths, scriptPaths)
 
-  }
-
-
-  addScriptFile(path) {
-    this.content[0].content[0].addTag('script', { src: path })
-  }
-
-
-  addStyleSheet(path) {
-    this.content[0].content[0].addTag(
-      'link',
-      { href: path, type: 'text/css', rel: 'stylesheet'}
-    );
   }
 
 
