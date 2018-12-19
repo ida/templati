@@ -1,0 +1,24 @@
+{
+  "name": "templati",
+  "version": "1.0.0",
+  "description": "Write templates programatically with Tag-objects.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ida/templati.git"
+  },
+  "keywords": [
+    "templating",
+    "templates",
+    "backend"
+  ],
+  "author": "Ida Ebkes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ida/templati/issues"
+  },
+  "homepage": "https://github.com/ida/templati"
+}
