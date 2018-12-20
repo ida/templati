@@ -1,4 +1,4 @@
-Templata
+Templati
 ========
 
 
@@ -27,7 +27,7 @@ How
 ---
 
 
-Thw class Tag represents an HTML-element and has the properties
+The class Tag represents an HTML-element and has the properties
 "tagName", "attr" and "content", we can create a tag like this:
 
     const Tag = require('templati').Tag
