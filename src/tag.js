@@ -17,7 +17,6 @@ let itemTagName = 'dd'
 
 function addTag(parentTag, tagName, attr={}, content=[]) {
     let tag = new Tag(tagName, attr, content)
-    tag.parentTag = parentTag
     parentTag.content.push(tag)
     return tag
 }
@@ -195,42 +194,6 @@ class Tag {
 
   addTags(contentObject) {
     addTags(this, contentObject)
-  }
-
-
-  goDown(pos=0) {
-    if(Array.isArray(this.content)) {
-      if(this.content.length > pos) {
-        return this.content[pos]
-      }
-    }
-    return null
-  }
-
-
-  goUp() {
-    if(this.parentTag !== undefined) return this.parentTag
-    return null
-  }
-
-
-  goNext(step=1) {
-    let pos = this.parentTag.content.indexOf(this) + step
-
-    if(this.parentTag.content.length > pos) {
-      return this.parentTag.content[pos]
-    }
-    return null
-  }
-
-
-  goPrev(step=1) {
-    let pos = this.parentTag.content.indexOf(this) - step
-
-    if(pos > -1) {
-      return this.parentTag.content[pos]
-    }
-    return null
   }
 
 

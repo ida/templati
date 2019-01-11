@@ -77,12 +77,12 @@ we can import the snippet-tag in any other script-file:
     const snippet = require('./snippet')
 
 
-Let's add a tag in the other script-file:
+Let's create a tag in the other script-file:
 
     const template = new Tag('div')
 
 
-Adding a tag into another, can be done also with addTag-function:
+Adding a tag into another is also done with the addTag-function:
 
     template.addTag(snippet)
 
@@ -131,31 +131,33 @@ with the following content:
 
 As you may have noticed, some sensible defaults are set, e.g.
 the language, title and character-decoding. In case you want
-to change these or access any Tag-object from a Tag-object,
-one can walk the tree like this:
+to change these, use the tag's content-property for accessing
+its children:
 
-	tag = tag.goUp() // tag is now parent
 
-	tag = tag.goNext() // tag is now next sibling
+    let htmlTag = doc.content[0]
 
-	tag = tag.goPrev(2) // tag is now second-previous sibling
+    let headTag = htmlTag.content[0]
 
-	tag = tag.goDown() // tag is now first-child
+    let bodyTag = htmlTag.content[1]
 
-	tag = tag.goDown(-1) // tag is now last-child
 
-	tag = tag.goDown(3) // tag is now third child
+The content-property is also chainable:
+
+    let titleTag = doc.content[0].content[0].content[0]
+
+
 
 
 Back to our example, if we'd want to change the lang-attr
-in html-tag, we can do:
+of the html-tag, we can do:
 
-	let htmlTag = doc.goDown()
-	htmlTag.attr.lang = 'es'
+	let headTag = doc.content[0].content[0]
+	headTag.attr.lang = 'es'
 
 
 Finally let's do some logical-operations, let's say you
-have some data of known structure, e.g. an array of items
+have some data of known structure, e.g. an array of items,
 and you want to apply some conditions, it could look like:
 
 	const data = hereComesTheDataFromSomewhereOutOfTheBlue()
