@@ -76,22 +76,6 @@ function addTags(parentTag, content) {
 }
 
 
-function forEachChild(tag, doSth=null, childs=[]) {
-  if(Array.isArray(tag.content)) {
-    let children = tag.content
-    for(let i in children) {
-      tag = children[i]
-      childs.push(tag)
-      if(doSth !== null) doSth(tag)
-      if(Array.isArray(tag.content)) {
-        forEachChild(tag, doSth, childs)
-      }
-    }
-  }
-  return childs
-}
-
-
 function tagToHtmlFile(tag, filePath) {
   fs.writeFileSync(filePath, tagToHtml(tag))
   console.log('Wrote', filePath)
@@ -194,11 +178,6 @@ class Tag {
 
   addTags(contentObject) {
     addTags(this, contentObject)
-  }
-
-
-  forEachChild(doSth) {
-    forEachChild(this, doSth)
   }
 
 
