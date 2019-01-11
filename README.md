@@ -2,57 +2,90 @@ Templati
 ========
 
 
+A template-engine for nodejs-based apps.
+
+
 What
 ----
 
-Create tags programatically and write an HTML-file of them.
-Ment for server-side pre-rendering, meaning the HTML-files
-are written initially and when data changes.
+Create tag-objects programatically and render them at any time.
+
 
 
 Why
 ---
 
 Existing templating-solutions often come with an own syntax
-and restrictions in applying logic or using substitutes which
+and restrictions in applying logic, or using substitutes which
 hide the logic entirely.
 
 The author wanted to have a lightweight solution which gives full
 control, leaving the reponsibility to not overload templates with
 logical operations to the developers and their conventions, and
-use native ECMA (a.k.a. JavaScript) instead of introducing more syntax.
+use ECMA (a.k.a. JavaScript) instead of introducing more syntax.
+
 
 
 How
 ---
 
-
-The class Tag represents an HTML-element and has the properties
+The class "Tag" represents an HTML-element and has the properties
 "tagName", "attr" and "content", we can create a tag like this:
 
     const Tag = require('templati').Tag
 
     let tag = new Tag('div', { class: 'taggy', 'id': 'root-tag' })
 
-And add child-tags in it, like this, passing tag-properties:
 
-    let child = tag.addTag('div', {}, 'Some text for the child')
+And add child-tags in it with the "addTag"-function:
+
+    let child = tag.addTag('div', {},)
+
+    let grandchild = child.addTag('span', {}, 'Some text')
+
 
 At any point Tags can be rendered:
 
     let html = tag.toHtml()
 
+
 Printing the result with `console.log(html)`, should now give:
 
     <div class="taggy" id="root-tag">
        <div>
-         Some text for the child
+        <span>
+            Some text
+        </span>
        </div>
      </div>
 
 
 
 Now we have a snippet for re-use, but what about templates?
+
+
+First, we make our tag snippet-tag exportable, adding this line
+at the bottom of our example-script:
+
+
+    module.exports = tag
+
+
+Let's assume the example-script-file is named 'snippet.js', then
+we can import the snippet-tag in any other script-file:
+
+    const snippet = require('./snippet')
+
+
+Let's add a tag in the other script-file:
+
+    const template = new Tag('div')
+
+
+Adding a tag into another, can be done also with addTag-function:
+
+    template.addTag(snippet)
+
 
 A class Doc is an extension of Tag and is initialized with a
 template-path and optionally CSS- and JS-paths:

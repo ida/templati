@@ -188,8 +188,8 @@ class Tag {
 
 
   addTag(tagName, attr={}, content=[]) {
-    let tag = addTag(this, tagName, attr, content)
-    return tag
+    if(tagName instanceof Tag) this.content.push(tagName)
+    else return addTag(this, tagName, attr, content)
   }
 
 
