@@ -15,10 +15,10 @@ class Form extends Tag {
 
     super('form', { action: action, method: 'post' })
 
-    this.addTag('input', {type: 'hidden', name: 'form', value: name})
+    this.addTag('input', {type: 'hidden', name: '_formname', value: name})
   
-    this.addTag('input', {type: 'submit'})
-  
+    this.addTag('input', {type: 'submit', value: name})
+
   }
 
 
@@ -48,7 +48,7 @@ class Form extends Tag {
     }
     
 
-    var field = new Tag('field', { style: 'display: block;'})
+    var field = new Tag('field', { style: 'display: inline-block;'})
     
     field.addTag('label', {}, attrs.name)
     
