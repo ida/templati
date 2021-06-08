@@ -1,4 +1,3 @@
-const addField = require('./fields').addField
 const fs = require('fs')
 
 
@@ -161,12 +160,6 @@ class Tag {
     this.attr = attr,      //  Key-value-pairs of tag-attributes.
     this.content = content//   A string for text, or an array of child-tag(s),
                          //    or a function which returns a string or array.
-  }
-
-
-  addField(tagName, attr={}, content=[]) {
-    let tag = addField(this, tagName, attr, content)
-    return tag
   }
 
 
