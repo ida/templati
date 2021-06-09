@@ -50,7 +50,7 @@ class Form extends Tag {
 
     var field = new Tag('field', { style: 'display: inline-block;'})
     
-    field.addTag('label', {}, attrs.name)
+    if(attrs.type != 'hidden') field.addTag('label', {}, attrs.name)
     
     field.addTag(tagName, attrs, content)
 
