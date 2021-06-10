@@ -9,7 +9,7 @@ const fieldTypes = ['textarea', 'select']
 class Form extends Tag {
 
 
-  constructor(name, action='/', fields) {
+  constructor(name, action='/', fields, LABELS=true) {
 
     super('form', { name: name, action: action, method: 'post' })
 
@@ -51,7 +51,7 @@ class Form extends Tag {
 
     var field = new Tag('field')
 
-    if(attrs.type != 'hidden') field.addTag('label', {}, attrs.name)
+    if(LABELS && attrs.type != 'hidden') field.addTag('label', {}, attrs.name)
 
     field.addTag(tagName, attrs, content)
 
