@@ -59,6 +59,8 @@ class Form extends Tag {
 
     this.content.splice(this.content.length-1, 0, field) // insert at second last pos
 
+    return field
+
   }
 
 }
