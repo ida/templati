@@ -1,8 +1,6 @@
 const Tag = require('./tag').Tag
 
-
 const inputTypes = ['text', 'number']
-
 
 const fieldTypes = ['textarea', 'select']
 
@@ -10,14 +8,18 @@ const fieldTypes = ['textarea', 'select']
 
 class Form extends Tag {
 
-  
+
   constructor(name, action='/', fields) {
 
-    super('form', { action: action, method: 'post' })
+    super('form', { name: name, action: action, method: 'post' })
+
+//    this.addTag('label', {}, name)
 
     this.addTag('input', {type: 'hidden', name: '_formname', value: name})
-  
+
     this.addTag('input', {type: 'submit', value: name})
+
+    if(fields) for(let field of fields) this.addField(field)
 
   }
 
@@ -25,15 +27,15 @@ class Form extends Tag {
   addField(attrs, content='') {
 
     if( ! attrs.name ) throw 'Form.addField needs a "name" in passed attrs.'
-    
+
     if( ! attrs.type ) attrs.type = 'text'
-    
+
     var tagName = 'input'
-    
+
     if(fieldTypes.includes(attrs.type)) {
-      
+
       tagName = attrs.type
-      
+
       delete attrs.type
 
       if(attrs.value) {
@@ -44,22 +46,18 @@ class Form extends Tag {
           delete attrs.value
         }
       }
-      
-    }
-    
 
-    var field = new Tag('field', { style: 'display: inline-block;'})
-    
+    }
+
+    var field = new Tag('field')
+
     if(attrs.type != 'hidden') field.addTag('label', {}, attrs.name)
-    
+
     field.addTag(tagName, attrs, content)
 
     this.content.splice(this.content.length-1, 0, field) // insert at second last pos
-    
-  
+
   }
-
-
 
 }
 
