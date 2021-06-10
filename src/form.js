@@ -53,7 +53,7 @@ class Form extends Tag {
 
     var field = new Tag('field')
 
-    if(LABELS && attrs.type != 'hidden') field.addTag('label', {}, attrs.name)
+    if(this.LABELS && attrs.type != 'hidden') field.addTag('label', {}, attrs.name)
 
     field.addTag(tagName, attrs, content)
 
