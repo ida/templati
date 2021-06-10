@@ -13,7 +13,9 @@ class Form extends Tag {
 
     super('form', { name: name, action: action, method: 'post' })
 
-//    this.addTag('label', {}, name)
+    this.LABELS = LABELS
+
+    if(LABELS) this.addTag('label', {}, name)
 
     this.addTag('input', {type: 'hidden', name: '_formname', value: name})
 
