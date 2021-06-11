@@ -20,7 +20,7 @@ function addTag(parentTag, tagName, attr={}, content=[]) {
 // around the text before appending the new tag, so you can address
 // the text as an own element specifically in the frontend (CSS/JS).
 
-    if( ! isArray(parentTag.content) ) { // is not default-value-type
+    if( ! isList(parentTag.content) ) { // is not default-value-type
 
       let text = parentTag.content
 
