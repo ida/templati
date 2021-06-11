@@ -15,8 +15,25 @@ let itemTagName = 'dd'
 
 
 function addTag(parentTag, tagName, attr={}, content=[]) {
+// Append new tag to 'parentTag.content'.
+// If 'parentTag.content' already contains text, create a wrapper-tag
+// around the text before appending the new tag, so you can address
+// the text as an own element specifically in the frontend (CSS/JS).
+
+    if( ! isArray(parentTag.content) ) { // is not default-value-type
+
+      let text = parentTag.content
+
+      parentTag.content = []
+
+      if(text) parentTag.addTag('span', {}, text) // is not empty string
+
+    }
+
     let tag = new Tag(tagName, attr, content)
+
     parentTag.content.push(tag)
+
     return tag
 }
 
