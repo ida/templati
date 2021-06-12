@@ -17,6 +17,11 @@ function ini(doc, stylePaths, scriptPaths) {
 
   tag.addTag('meta', { charset: 'utf-8'})
 
+  tag.addTag('meta', {
+    name: 'viewport',
+    content: 'width=device-width, initial-scale=1.0'
+  });
+
   tag = doc.content[0]
 
   for(let i in stylePaths) {
