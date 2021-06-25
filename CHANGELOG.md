@@ -3,6 +3,8 @@
 
 ## 1.0.4 (2021-06-14)
 
+* Add property 'submit' to Form, to have instant access to it.
+
 * Make Doc.filePath optional, but require at least a doc-name.
 
 * Add meta-tag viewport to head-tag of a Doc.

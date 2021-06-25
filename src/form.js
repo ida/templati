@@ -19,7 +19,7 @@ class Form extends Tag {
 
     this.addTag('input', {type: 'hidden', name: '_formname', value: name})
 
-    this.addTag('input', {type: 'submit', value: name})
+    this.submit = this.addTag('input', {type: 'submit', value: name})
 
     if(fields) for(let field of fields) this.addField(field)
 
