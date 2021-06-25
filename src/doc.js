@@ -36,8 +36,7 @@ function ini(doc, stylePaths, scriptPaths) {
 
   for(let i in scriptPaths) {
     doc.content[0].content[0].addTag('script', {
-      src: scriptPaths[i],
-      defer: true
+      src: scriptPaths[i]
     });
   }
 
