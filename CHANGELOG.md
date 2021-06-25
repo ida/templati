@@ -1,6 +1,10 @@
 # templati changelog
 
 
+## 1.0.6 (unreleased)
+
+
+
 ## 1.0.5 (2021-06-25)
 
 * Add property 'submit' to Form, to have instant access to it.
