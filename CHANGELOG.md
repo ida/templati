@@ -1,11 +1,13 @@
 # templati changelog
 
 
-## 1.0.4 (2021-06-14)
+## 1.0.5 (2021-06-25)
 
 * Add property 'submit' to Form, to have instant access to it.
 
 * Make Doc.filePath optional, but require at least a doc-name.
+
+## 1.0.4 (2021-06-14)
 
 * Add meta-tag viewport to head-tag of a Doc.
 
