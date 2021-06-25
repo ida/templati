@@ -1,9 +1,12 @@
 # templati changelog
 
 
-## 1.0.6 (unreleased)
+## 1.0.7 (unreleased)
 
 
+## 1.0.6 (2021-06-25)
+
+* Accidental npm-publish, nothing changed.
 
 ## 1.0.5 (2021-06-25)
 
