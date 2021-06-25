@@ -3,17 +3,19 @@ const Tag = require('./tag').Tag
 
 function ini(doc, stylePaths, scriptPaths) {
 
-  let name = doc.filePath.split('/') // get everything after last slash
-  name = name[name.length-1]
-  name = name.split('.')[0] // remove extension
-  name = name[0].toUpperCase() + name.slice(1) // uppercase name
-
+  if( ! doc.name ) {
+    let name = doc.filePath.split('/') // get everything after last slash
+    name = name[name.length-1]
+    name = name.split('.')[0] // remove extension
+    name = name[0].toUpperCase() + name.slice(1) // uppercase name
+    doc.name = name
+  }
 
   let tag = doc.addTag('html', { lang: 'en-gb'})
 
   tag = tag.addTag('head')
 
-  tag.addTag('title', {}, name)
+  tag.addTag('title', {}, doc.name)
 
   tag.addTag('meta', { charset: 'utf-8'})
 
@@ -47,18 +49,48 @@ function ini(doc, stylePaths, scriptPaths) {
 
 class Doc extends Tag {
 
-  constructor(filePath, stylePaths=[], scriptPaths=[]) {
+  constructor(filePathOrDocName, stylePaths=[], scriptPaths=[]) {
+
+    if( ! filePathOrDocName ) throw `
+  Cannot create Doc, you need to pass a doc-name or file-path, e.g.:
+
+    var doc = new Doc('about')
+
+  Or:
+
+    var doc = new Doc('path/to/about.html')
+` // eo string
 
     super('!doctype', { html: true })
 
-    this.filePath = filePath
+    this.filePath = null
+
+    this.name = null
+
+    if(filePathOrDocName.endsWith('.html')) {
+      this.filePath = filePathOrDocName
+    }
+    else {
+      this.name = filePathOrDocName
+    }
+
     this.body = ini(this, stylePaths, scriptPaths)
 
   }
 
 
   writeDoc() {
+
+    if( ! this.filePath ) throw `
+
+    Cannot write doc because no filePath was given.
+
+    Set it like this: docObject.filePath = 'path/to/file.html'
+
+` // eo string
+
     this.writeHtml(this.filePath)
+
   }
 
 }
