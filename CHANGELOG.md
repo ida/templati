@@ -6,6 +6,10 @@
 * Default value of submit-field to titlelized form-name,
   e.g. 'add-item' turns to 'Add item'.
 
+* No indentation and linebreak in between opening- and closing-tag
+  of textareas, because they add spaces in the field, when editing.
+
+
 ## 1.0.6 (2021-06-25)
 
 * Accidental npm-publish, nothing changed.

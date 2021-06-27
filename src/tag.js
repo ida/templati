@@ -121,7 +121,9 @@ function tagToHtml(tag, currentIndent='', indent='  ') {
         html += ' ' + propName
       }
     }
-    html += '>\n'
+
+    if(tagName == 'textarea') html += '>'
+    else html += '>\n'
 
     // Increase indent for all tags but doc:
     if(tagName != '!doctype') {
@@ -145,7 +147,8 @@ function tagToHtml(tag, currentIndent='', indent='  ') {
     }
 
     else {
-      html += currentIndent + String(content) + '\n'
+      if(tagName == 'textarea') html += String(content)
+      else html += currentIndent + String(content) + '\n'
     }
 
 
@@ -158,7 +161,8 @@ function tagToHtml(tag, currentIndent='', indent='  ') {
     // Tag END (closing-tag):
 
     if(selfClosingTagNames.indexOf(tagName) == -1) {
-      html += currentIndent + '</' + tagName + '>\n'
+      if(tagName == 'textarea') html += '</' + tagName + '>\n'
+      else html += currentIndent + '</' + tagName + '>\n'
     }
 
     return html
