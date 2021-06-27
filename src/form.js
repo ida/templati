@@ -5,6 +5,14 @@ const inputTypes = ['text', 'number']
 const fieldTypes = ['textarea', 'select']
 
 
+function titlelize(string) {
+  // 'add-item' -> 'Add item'
+  string = string[0].toUpperCase() + string.slice(1)
+  string = string.replace(/-/g, ' ')
+	return string
+}
+
+
 
 class Form extends Tag {
 
@@ -19,7 +27,7 @@ class Form extends Tag {
 
     this.addTag('input', {type: 'hidden', name: '_formname', value: name})
 
-    this.submit = this.addTag('input', {type: 'submit', value: name})
+    this.submit = this.addTag('input', {type: 'submit', value: titlelize(name) } )
 
     if(fields) for(let field of fields) this.addField(field)
 

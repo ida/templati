@@ -3,6 +3,8 @@
 
 ## 1.0.7 (unreleased)
 
+* Default value of submit-field to titlelized form-name,
+  e.g. 'add-item' turns to 'Add item'.
 
 ## 1.0.6 (2021-06-25)
 
