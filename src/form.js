@@ -51,10 +51,6 @@ class Form extends Tag {
       if(attrs.value) {
         content = attrs.value
         delete attrs.value
-        if(attrs.value) {
-          content = attrs.value
-          delete attrs.value
-        }
       }
 
     }
