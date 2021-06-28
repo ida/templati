@@ -3,6 +3,8 @@
 
 ## 1.0.7 (unreleased)
 
+* Add method getField(fieldName) for Form objects.
+
 * Default value of submit-field to titlelized form-name,
   e.g. 'add-item' turns to 'Add item'.
 
