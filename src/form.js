@@ -61,11 +61,34 @@ class Form extends Tag {
 
     field.addTag(tagName, attrs, content)
 
-    this.content.splice(this.content.length-1, 0, field) // insert at second last pos
+    this.content.splice(this.content.length-1, 0, field) // insert before submit
 
     return field
 
   }
+
+
+  getField(fieldName) {
+
+    for(var field of this.content) {
+
+      // Childless field:
+
+      if(field.attr.name == fieldName) return field
+
+      // Parental field:
+
+      if(Array.isArray(field.content) && field.content.length > 0 ) {
+
+        for(var child of field.content) {
+
+          if(child.attr.name == fieldName) return child
+
+        }
+      }
+    }
+  }
+
 
 }
 
