@@ -17,7 +17,9 @@ function titlelize(string) {
 class Form extends Tag {
 
 
-  constructor(name, action='/', fields, LABELS=true) {
+  constructor(name, action, fields, LABELS=true) {
+
+    if( ! name || ! action ) throw 'Creating a Form requires to pass name and an action!'
 
     super('form', { name: name, action: action, method: 'post' })
 
