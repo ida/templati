@@ -25,7 +25,7 @@ class Form extends Tag {
 
     this.LABELS = LABELS
 
-    if(LABELS) this.addTag('label', {}, name)
+    if(LABELS) this.addTag('label', {}, titlelize(name) )
 
     this.addTag('input', {type: 'hidden', name: '_formname', value: name})
 
