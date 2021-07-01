@@ -1,7 +1,7 @@
 # templati changelog
 
 
-## 1.0.7 (unreleased)
+## 1.0.7 (2021-07-01)
 
 * Add method getField(fieldName) for Form objects.
 

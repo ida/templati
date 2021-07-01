@@ -39,7 +39,7 @@ The class "Tag" represents an HTML-element and has the properties
 
 And add child-tags in it with the "addTag"-function:
 
-    let child = tag.addTag('div', {},)
+    let child = tag.addTag()     // defaults to tagName 'div'
 
     let grandchild = child.addTag('span', {}, 'Some text')
 
@@ -87,8 +87,8 @@ Adding a tag into another is also done with the addTag-function:
     template.addTag(snippet)
 
 
-A class Doc is an extension of Tag and is initialized with a
-template-path and optionally CSS- and JS-paths:
+The class Doc is an extension of Tag and is initialized with a
+doc-name or -filepath and optionally CSS- and JS-paths:
 
     const Doc = require('templati').Doc
  
