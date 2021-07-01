@@ -1,1 +1,0 @@
-The main-script is 'tag.js', all others extend it.
