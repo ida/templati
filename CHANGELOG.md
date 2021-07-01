@@ -5,8 +5,8 @@
 
 * Add method getField(fieldName) for Form objects.
 
-* Default value of submit-field to titlelized form-name,
-  e.g. 'add-item' turns to 'Add item'.
+* Give form-label and -submit-field the titlelized form-name
+  as text, e.g. 'add-item' turns to 'Add item'.
 
 * No indentation and linebreak in between opening- and closing-tag
   of textareas, because they add spaces in the field, when editing.
