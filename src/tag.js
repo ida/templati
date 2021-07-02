@@ -2,7 +2,26 @@ const fs = require('fs')
 
 
 // Tag-types which don't need a closing-tag:
-const selfClosingTagNames = ['!doctype', 'input', 'img', 'link', 'meta']
+const selfClosingTagNames = [
+'!doctype',
+'area',
+'base',
+'br',
+'col',
+'embed',
+'hr',
+'img',
+'input',
+'link',
+'meta',
+'param',
+'source',
+'track',
+'wbr',
+'command',
+'keygen',
+'menuitem'
+]
 
 
 // Valueless attributes which either exist, or not:
