@@ -219,8 +219,18 @@ class Tag {
   }
 
 
+  toJson() {
+    return JSON.stringify(this)
+  }
+
+
   writeHtml(filePath) {
     tagToHtmlFile(this, filePath)
+  }
+
+
+  writeJSON(filePath) {
+    fs.writeFileSync(filePath, this.toJson())
   }
 
 
