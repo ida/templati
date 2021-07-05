@@ -25,7 +25,7 @@ const selfClosingTagNames = [
 
 
 // Valueless attributes which either exist, or not:
-const flagOnlyAttributeNames = ['html', 'checked', 'defer']
+const flagOnlyAttributeNames = ['html', 'checked', 'defer', 'selected', 'autofocus']
 
 let listTagName = 'dl'
 let keyTagName  = 'dt'
