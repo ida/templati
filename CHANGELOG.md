@@ -3,7 +3,7 @@
 
 ## 1.0.8 (unreleased)
 
-
+* Add `Tag.toJson()` and `Tag.writeJson()`.
 
 ## 1.0.7 (2021-07-01)
 
