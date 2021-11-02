@@ -1,7 +1,11 @@
 # templati changelog
 
 
-## 1.0.8 (unreleased)
+## 1.0.9 (unreleased)
+
+*
+
+## 1.0.8 (2021-11-01)
 
 * Add `Tag.toJson()` and `Tag.writeJson()`.
 
