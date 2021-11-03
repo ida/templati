@@ -166,7 +166,7 @@ function tagToHtml(tag, currentIndent='', indent='  ') {
     }
 
     else {
-      if(tagName == 'textarea') html += String(content)
+      if(tagName == 'textarea' || tagName == 'pre') html += String(content)
       else html += currentIndent + String(content) + '\n'
     }
 
