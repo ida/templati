@@ -92,6 +92,32 @@ class Form extends Tag {
   }
 
 
+  function removeLabel(form, label) {
+    for(var child of form.content) {
+      if(child.tagName == 'field') {
+        for(var i in child.content) {
+          if(child.content[i].tagName == 'label' && child.content[i].content == label) {
+            child.content.splice(i, 1)
+          }
+        }
+      }
+    }
+  }
+
+
+  function renameLabel(form, oldName, newName) {
+    for(var child of form.content) {
+      if(child.tagName == 'field') {
+        for(var grandchild of child.content) {
+          if(grandchild.tagName == 'label' && grandchild.content == oldName) {
+            grandchild.content = newName
+          }
+        }
+      }
+    }
+  }
+
+
 }
 
 
