@@ -92,7 +92,7 @@ class Form extends Tag {
   }
 
 
-  function removeLabel(form, label) {
+  removeLabel(form, label) {
     for(var child of form.content) {
       if(child.tagName == 'field') {
         for(var i in child.content) {
@@ -105,7 +105,7 @@ class Form extends Tag {
   }
 
 
-  function renameLabel(form, oldName, newName) {
+  renameLabel(form, oldName, newName) {
     for(var child of form.content) {
       if(child.tagName == 'field') {
         for(var grandchild of child.content) {
