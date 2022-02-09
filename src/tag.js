@@ -144,8 +144,8 @@ function tagToHtml(tag, currentIndent='', indent='  ') {
     if(tagName == 'textarea') html += '>'
     else html += '>\n'
 
-    // Increase indent for all tags but doc:
-    if(tagName != '!doctype') {
+    // Increase indent for all tags but doc and html:
+    if(tagName != '!doctype' && tagName != 'html') {
       currentIndent += indent
     }
 
