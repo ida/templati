@@ -15,14 +15,14 @@ function ini(doc, stylePaths, scriptPaths) {
 
   tag = tag.addTag('head')
 
-  tag.addTag('title', {}, doc.name)
-
   tag.addTag('meta', { charset: 'utf-8'})
 
   tag.addTag('meta', {
     name: 'viewport',
     content: 'width=device-width, initial-scale=1.0'
   });
+
+  tag.addTag('title', {}, doc.name)
 
   tag = doc.content[0]
 
