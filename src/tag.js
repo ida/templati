@@ -27,10 +27,6 @@ const selfClosingTagNames = [
 // Valueless attributes which either exist, or not:
 const flagOnlyAttributeNames = ['html', 'checked', 'defer', 'selected', 'autofocus']
 
-let listTagName = 'dl'
-let keyTagName  = 'dt'
-let itemTagName = 'dd'
-
 
 
 function addTag(parentTag, tagName, attr={}, content=[]) {
@@ -39,7 +35,7 @@ function addTag(parentTag, tagName, attr={}, content=[]) {
 // around the text before appending the new tag, so you can address
 // the text as an own element specifically in the frontend (CSS/JS).
 
-    if( ! isList(parentTag.content) ) { // is not default-value-type
+    if( ! Array.isArray(parentTag.content) ) { // is not default-value-type
 
       let text = parentTag.content
 
@@ -54,60 +50,6 @@ function addTag(parentTag, tagName, attr={}, content=[]) {
     parentTag.content.push(tag)
 
     return tag
-}
-
-
-function setArrayParams() {
-  listTagName = 'ul'
-  keyTagName  = 'span'
-  itemTagName = 'li'
-}
-
-
-function setObjectParams() {
-  listTagName = 'dl'
-  keyTagName  = 'dt'
-  itemTagName = 'dd'
-}
-
-function convertEmptyValue(value) {
-  if(value==null) value='null'
-  else if(isList(value) == true && value.length < 1) {
-    value='[]'
-  }
-  else if(isDict(value) == true && Object.keys(value).length < 1) {
-    value='{}'
-  }
-  return value
-}
-function isList(value) {
-  return Array.isArray(value)
-}
-function isDict(value) {
-  return typeof(value) == 'object' && isList(value) == false
-}
-
-function addTags(parentTag, content) {
-// content is expected to be a list or a dict
-  parentTag = parentTag.addTag(listTagName)
-
-  for(let key in content) {
-
-    let value = content[key]
-
-    value = convertEmptyValue(value)
-
-    if(isDict(content)) parentTag.addTag(keyTagName, {}, key)
-
-    if(isDict(value) || isList(value)) {
-      parentTag = parentTag.addTag(itemTagName)
-      parentTag = addTags(parentTag, value)
-    }
-    else {
-      parentTag.addTag(itemTagName, {}, value)
-    }
-  }
-  return parentTag
 }
 
 
@@ -207,11 +149,6 @@ class Tag {
   addTag(tagName, attr={}, content=[]) {
     if(tagName instanceof Tag) this.content.push(tagName)
     else return addTag(this, tagName, attr, content)
-  }
-
-
-  addTags(contentObject) {
-    addTags(this, contentObject)
   }
 
 

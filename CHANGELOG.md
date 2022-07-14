@@ -3,7 +3,7 @@
 
 ## 1.0.9 (unreleased)
 
-*
+* Remove Tag.addTags(), it's not of advantage.
 
 ## 1.0.8 (2021-11-01)
 
