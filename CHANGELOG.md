@@ -1,9 +1,11 @@
 # templati changelog
 
 
-## 1.0.9 (unreleased)
+## 1.0.9 (2022-07-18)
 
 * Create frontend-script of backend-script.
+
+* No indentation for scrpt-tags with a src-attr.
 
 * Remove Tag.addTags(), it's not of advantage.
 
