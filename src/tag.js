@@ -83,7 +83,9 @@ function tagToHtml(tag, currentIndent='', indent='  ') {
       }
     }
 
-    if(tagName == 'textarea') html += '>'
+    if(tagName == 'textarea' || (tagName == 'script' && content == '') ) {
+      html += '>'
+    }
     else html += '>\n'
 
     // Increase indent for all tags but doc and html:
@@ -113,7 +115,6 @@ function tagToHtml(tag, currentIndent='', indent='  ') {
       else html += currentIndent + String(content) + '\n'
     }
 
-
     // Decrease indent, if any left:
     if(currentIndent.length > 0) {
       currentIndent = currentIndent.slice(indent.length)
@@ -123,15 +124,16 @@ function tagToHtml(tag, currentIndent='', indent='  ') {
     // Tag END (closing-tag):
 
     if(selfClosingTagNames.indexOf(tagName) == -1) {
-      if(tagName == 'textarea') html += '</' + tagName + '>\n'
-      else html += currentIndent + '</' + tagName + '>\n'
+      if(tagName != 'textarea' && tagName != 'pre' &&
+        (tagName != 'script' && content != '') ) {
+        html += currentIndent
+      }
+      html += '</' + tagName + '>\n'
     }
 
     return html
 
 }
-
-
 
 
 class Tag {
