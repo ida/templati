@@ -1,7 +1,7 @@
 const Tag = require('./tag').Tag
 
 
-function ini(doc, stylePaths, scriptPaths) {
+function iniDoc(doc, stylePaths, scriptPaths) {
 
   if( ! doc.name ) {
     let name = doc.filePath.split('/') // get everything after last slash
@@ -73,7 +73,7 @@ class Doc extends Tag {
       this.name = filePathOrDocName
     }
 
-    this.body = ini(this, stylePaths, scriptPaths)
+    this.body = iniDoc(this, stylePaths, scriptPaths)
 
   }
 
@@ -95,4 +95,10 @@ class Doc extends Tag {
 }
 
 
-exports.Doc = Doc
+module.exports = {
+
+  Doc: Doc,
+
+  iniDoc: iniDoc
+
+}

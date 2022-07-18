@@ -8,7 +8,8 @@ A template-engine for nodejs-based apps.
 What
 ----
 
-Create tag-objects programatically and render them at any time.
+Create tag-objects programatically and render them at any time,
+or precompile html-documents of it, if used from backend.
 
 
 
@@ -25,14 +26,30 @@ logical operations to the developers and their conventions, and
 use ECMA (a.k.a. JavaScript) instead of introducing more syntax.
 
 
-
 How
 ---
 
+After installing this package with `npm i templati`,
+you can use templati as a frontend- or backend-script.
+
+For using it in the frontend, go to your frontend-scripts-folder
+and create a symlink to the shipped script:
+
+    cd public/scripts
+
+    ln -s ../../node_modules/templati/dist/templati.js
+
+This makes sure that the script is up to date, when you
+upgrade this package.
+
+
+For using it in the backend, import it in your backend-script:
+
+    const { Tag } = require('templati')
+
+
 The class "Tag" represents an HTML-element and has the properties
 "tagName", "attr" and "content", we can create a tag like this:
-
-    const Tag = require('templati').Tag
 
     let tag = new Tag('div', { class: 'taggy', 'id': 'root-tag' })
 

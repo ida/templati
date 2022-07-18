@@ -1,6 +1,6 @@
-const fs = require('fs')
-
-
+//
+// templati-1.0.9
+//
 
 function addTag(parentTag, tagName, attr={}, content=[]) {
 // Append new tag to 'parentTag.content'.
@@ -24,13 +24,6 @@ function addTag(parentTag, tagName, attr={}, content=[]) {
 
     return tag
 }
-
-
-function tagToHtmlFile(tag, filePath) {
-  fs.writeFileSync(filePath, tagToHtml(tag))
-  console.log('Wrote', filePath)
-}
-
 
 function tagToHtml(tag, currentIndent='', indent='  ') {
 
@@ -131,9 +124,6 @@ function tagToHtml(tag, currentIndent='', indent='  ') {
 
 }
 
-
-
-
 class Tag {
 
 
@@ -174,14 +164,94 @@ class Tag {
 
 }
 
+class Doc extends Tag {
+
+  constructor(filePathOrDocName, stylePaths=[], scriptPaths=[]) {
+
+    if( ! filePathOrDocName ) throw `
+  Cannot create Doc, you need to pass a doc-name or file-path, e.g.:
+
+    var doc = new Doc('about')
+
+  Or:
+
+    var doc = new Doc('path/to/about.html')
+` // eo string
+
+    super('!doctype', { html: true })
+
+    this.filePath = null
+
+    this.name = null
+
+    if(filePathOrDocName.endsWith('.html')) {
+      this.filePath = filePathOrDocName
+    }
+    else {
+      this.name = filePathOrDocName
+    }
+
+    this.body = iniDoc(this, stylePaths, scriptPaths)
+
+  }
 
 
-module.exports = {
+  writeDoc() {
 
-  addTag: addTag,
+    if( ! this.filePath ) throw `
 
-  tagToHtml: tagToHtml,
+    Cannot write doc because no filePath was given.
 
-  Tag: Tag
+    Set it like this: docObject.filePath = 'path/to/file.html'
+
+` // eo string
+
+    this.writeHtml(this.filePath)
+
+  }
 
 }
+
+function iniDoc(doc, stylePaths, scriptPaths) {
+
+  if( ! doc.name ) {
+    let name = doc.filePath.split('/') // get everything after last slash
+    name = name[name.length-1]
+    name = name.split('.')[0] // remove extension
+    name = name[0].toUpperCase() + name.slice(1) // uppercase name
+    doc.name = name
+  }
+
+  let tag = doc.addTag('html', { lang: 'en-gb'})
+
+  tag = tag.addTag('head')
+
+  tag.addTag('meta', { charset: 'utf-8'})
+
+  tag.addTag('meta', {
+    name: 'viewport',
+    content: 'width=device-width, initial-scale=1.0'
+  });
+
+  tag.addTag('title', {}, doc.name)
+
+  tag = doc.content[0]
+
+  for(let i in stylePaths) {
+    doc.content[0].content[0].addTag('link', {
+      href: stylePaths[i],
+      type: 'text/css',
+      rel: 'stylesheet'
+    });
+  }
+
+  for(let i in scriptPaths) {
+    doc.content[0].content[0].addTag('script', {
+      src: scriptPaths[i]
+    });
+  }
+
+  return tag.addTag('body')
+
+}
+

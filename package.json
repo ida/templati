@@ -4,6 +4,7 @@
   "description": "Write templates programatically with Tag-objects.",
   "main": "index.js",
   "scripts": {
+    "build": "node build/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
