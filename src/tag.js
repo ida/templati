@@ -8,21 +8,22 @@ function addTag(parentTag, tagName, attr={}, content=[]) {
 // around the text before appending the new tag, so you can address
 // the text as an own element specifically in the frontend (CSS/JS).
 
-    if( ! Array.isArray(parentTag.content) ) { // is not default-value-type
+  if( ! Array.isArray(parentTag.content) ) { // is not default-value-type
 
-      let text = parentTag.content
+    let text = parentTag.content
 
-      parentTag.content = []
+    parentTag.content = []
 
-      if(text) parentTag.addTag('span', {}, text) // is not empty string
+    if(text) parentTag.addTag('span', {}, text) // is not empty string
 
-    }
+  }
 
-    let tag = new Tag(tagName, attr, content)
+  let tag = new Tag(tagName, attr, content)
 
-    parentTag.content.push(tag)
+  parentTag.content.push(tag)
 
-    return tag
+  return tag
+
 }
 
 
@@ -34,104 +35,104 @@ function tagToHtmlFile(tag, filePath) {
 
 function tagToHtml(tag, currentIndent='', indent='  ') {
 
-    let tagName = tag.tagName
-    let attr    = tag.attr
-    let content = tag.content
+  let tagName = tag.tagName
+  let attr    = tag.attr
+  let content = tag.content
 
 
-    // Tag-types which don't need a closing-tag:
-    const selfClosingTagNames = [
-    '!doctype',
-    'area',
-    'base',
-    'br',
-    'col',
-    'embed',
-    'hr',
-    'img',
-    'input',
-    'link',
-    'meta',
-    'param',
-    'source',
-    'track',
-    'wbr',
-    'command',
-    'keygen',
-    'menuitem'
-    ]
+  // Tag-types which don't need a closing-tag:
+  const selfClosingTagNames = [
+  '!doctype',
+  'area',
+  'base',
+  'br',
+  'col',
+  'embed',
+  'hr',
+  'img',
+  'input',
+  'link',
+  'meta',
+  'param',
+  'source',
+  'track',
+  'wbr',
+  'command',
+  'keygen',
+  'menuitem'
+  ]
 
 
-    // Valueless attributes which either exist, or not:
-    const flagOnlyAttributeNames = ['html', 'checked', 'defer', 'selected', 'autofocus']
+  // Valueless attributes which either exist, or not:
+  const flagOnlyAttributeNames = ['html', 'checked', 'defer', 'selected', 'autofocus']
 
 
-    // Tag BEGIN (opening-tag):
+  // Tag BEGIN (opening-tag):
 
-    var html = currentIndent + '<' + tagName
-    for(let propName in attr) {
-      let value = attr[propName]
-      if(flagOnlyAttributeNames.indexOf(propName) == -1) {
-        html += ' ' + propName + '="' + value + '"'
-      }
-      else if(value !== false && value !== true) {
-        throw 'Error: Flag-only property expected to be either true or false!'
-            + 'Got property " ' + propName + '" with value ' + value
-      }
-      else if(value === true) {
-        html += ' ' + propName
-      }
+  var html = currentIndent + '<' + tagName
+  for(let propName in attr) {
+    let value = attr[propName]
+    if(flagOnlyAttributeNames.indexOf(propName) == -1) {
+      html += ' ' + propName + '="' + value + '"'
     }
-
-    if(tagName == 'textarea' || (tagName == 'script' && content == '') ) {
-      html += '>'
+    else if(value !== false && value !== true) {
+      throw 'Error: Flag-only property expected to be either true or false!'
+          + 'Got property " ' + propName + '" with value ' + value
     }
-    else html += '>\n'
-
-    // Increase indent for all tags but doc and html:
-    if(tagName != '!doctype' && tagName != 'html') {
-      currentIndent += indent
+    else if(value === true) {
+      html += ' ' + propName
     }
+  }
+
+  if(tagName == 'textarea' || (tagName == 'script' && content == '') ) {
+    html += '>'
+  }
+  else html += '>\n'
+
+  // Increase indent for all tags but doc and html:
+  if(tagName != '!doctype' && tagName != 'html') {
+    currentIndent += indent
+  }
 
 
-    // Tag CONTENT:
+  // Tag CONTENT:
 
-    // Content is a function which returns content:
-    if(typeof(content) == 'function') {
-      content = content()
+  // Content is a function which returns content:
+  if(typeof(content) == 'function') {
+    content = content()
+  }
+
+  // Content is an array (of tag-objects):
+  if(Array.isArray(content)) {
+    for(let i in content) {
+      // Call this function on each item (tag-object) of array:
+      html += tagToHtml(content[i], currentIndent)
     }
+  }
 
-    // Content is an array (of tag-objects):
-    if(Array.isArray(content)) {
-      for(let i in content) {
-        // Call this function on each item (tag-object) of array:
-        html += tagToHtml(content[i], currentIndent)
-      }
+  else {
+    // TODO  replace < with &lt;
+    if(tagName == 'textarea' || tagName == 'pre') html += String(content)
+    else html += currentIndent + String(content) + '\n'
+  }
+
+  // Decrease indent, if any left:
+  if(currentIndent.length > 0) {
+    currentIndent = currentIndent.slice(indent.length)
+  }
+
+
+  // Tag END (closing-tag):
+
+  if(selfClosingTagNames.indexOf(tagName) == -1) {
+    if(tagName != 'textarea' && tagName != 'pre' &&
+      (tagName != 'script' && content != '') ) {
+      html += currentIndent
     }
+    html += '</' + tagName + '>\n'
+  }
 
-    else {
-      // TODO  replace < with &lt;
-      if(tagName == 'textarea' || tagName == 'pre') html += String(content)
-      else html += currentIndent + String(content) + '\n'
-    }
-
-    // Decrease indent, if any left:
-    if(currentIndent.length > 0) {
-      currentIndent = currentIndent.slice(indent.length)
-    }
-
-
-    // Tag END (closing-tag):
-
-    if(selfClosingTagNames.indexOf(tagName) == -1) {
-      if(tagName != 'textarea' && tagName != 'pre' &&
-        (tagName != 'script' && content != '') ) {
-        html += currentIndent
-      }
-      html += '</' + tagName + '>\n'
-    }
-
-    return html
+  return html
 
 }
 
