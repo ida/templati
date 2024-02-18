@@ -3,6 +3,10 @@
 
 ## 1.1.0 (unreleased)
 
+* Make passing filePathOrDocName to Doc optional.
+
+* If a filePath was passed to Doc, generate Doc.name of it.
+
 *
 
 

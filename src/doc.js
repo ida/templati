@@ -1,15 +1,10 @@
+const path = require('path')
+
 const Tag = require('./tag').Tag
 
 
-function iniDoc(doc, stylePaths, scriptPaths) {
 
-  if( ! doc.name ) {
-    let name = doc.filePath.split('/') // get everything after last slash
-    name = name[name.length-1]
-    name = name.split('.')[0] // remove extension
-    name = name[0].toUpperCase() + name.slice(1) // uppercase name
-    doc.name = name
-  }
+const addTags = (doc, stylePaths, scriptPaths) => {
 
   let tag = doc.addTag('html', { lang: 'en-gb'})
 
@@ -40,7 +35,45 @@ function iniDoc(doc, stylePaths, scriptPaths) {
     });
   }
 
-  return tag.addTag('body')
+  doc.body = tag.addTag('body')
+
+}
+
+
+
+const iniDoc = (doc, stylePaths, scriptPaths) => {
+
+  setPathOfName(doc)
+
+  setNameOfPath(doc)
+
+  addTags(doc, stylePaths, scriptPaths)
+
+}
+
+
+
+const setPathOfName = doc => {
+
+  if( ! doc.name.endsWith('.html') )  return
+
+  doc.filePath = doc.name
+
+}
+
+
+
+const setNameOfPath = doc => {
+
+  if(doc.filePath === null)  return
+
+  let name = path.basename(doc.filePath)
+
+  let extension = path.extname(name)
+
+  name = name.slice(0, name.length - extension.length)
+
+  doc.name = name
 
 }
 
@@ -48,45 +81,25 @@ function iniDoc(doc, stylePaths, scriptPaths) {
 
 class Doc extends Tag {
 
-  constructor(filePathOrDocName, stylePaths=[], scriptPaths=[]) {
 
-    if( ! filePathOrDocName ) throw `
-  Cannot create Doc, you need to pass a doc-name or file-path, e.g.:
-
-    var doc = new Doc('about')
-
-  Or:
-
-    var doc = new Doc('path/to/about.html')
-` // eo string
+  constructor(filePathOrDocName='', stylePaths=[], scriptPaths=[]) {
 
     super('!doctype', { html: true })
 
+    this.name = filePathOrDocName
+
     this.filePath = null
 
-    this.name = null
+    this.body = null
 
-    if(filePathOrDocName.endsWith('.html')) {
-      this.filePath = filePathOrDocName
-    }
-    else {
-      this.name = filePathOrDocName
-    }
-
-    this.body = iniDoc(this, stylePaths, scriptPaths)
+    iniDoc(this, stylePaths, scriptPaths)
 
   }
 
 
   writeDoc() {
 
-    if( ! this.filePath ) throw `
-
-    Cannot write doc because no filePath was given.
-
-    Set it like this: docObject.filePath = 'path/to/file.html'
-
-` // eo string
+    if( ! this.filePath ) throw new Error('No filePath given!')
 
     this.writeHtml(this.filePath)
 
@@ -95,10 +108,4 @@ class Doc extends Tag {
 }
 
 
-module.exports = {
-
-  Doc: Doc,
-
-  iniDoc: iniDoc
-
-}
+module.exports.Doc = Doc
