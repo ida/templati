@@ -116,7 +116,10 @@ function tagToHtml(tag, currentIndent='', indent='  ') {
     else {
       let lines = content.split('\n')
       for(let line of lines) {
-        html += currentIndent + String(line) + '\n'
+        if(tagName != 'script' && tagName != 'style') {
+          html += currentIndent
+        }
+        html += String(line) + '\n'
       }
     }
   }
