@@ -2,6 +2,8 @@ const path = require('path')
 
 const Tag = require('./tag').Tag
 
+const titlelize = require('./helpers').titlelize
+
 
 
 const addTags = (doc, stylePaths, scriptPaths) => {
@@ -17,7 +19,7 @@ const addTags = (doc, stylePaths, scriptPaths) => {
     content: 'width=device-width, initial-scale=1.0'
   });
 
-  tag.addTag('title', {}, doc.name[0].toUpperCase() + doc.name.slice(1) )
+  tag.addTag('title', {}, titlelize(doc.name))
 
   tag = doc.content[0]
 
