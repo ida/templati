@@ -14,7 +14,7 @@ function addTag(parentTag, tagName, attr={}, content=[]) {
 
     parentTag.content = []
 
-    if(text) parentTag.addTag('span', {}, text) // is not empty string
+    if(text) parentTag.addTag('span', {}, text)
 
   }
 
@@ -113,7 +113,12 @@ function tagToHtml(tag, currentIndent='', indent='  ') {
   else {
     // TODO  replace < with &lt;
     if(tagName == 'textarea' || tagName == 'pre') html += String(content)
-    else html += currentIndent + String(content) + '\n'
+    else {
+      let lines = content.split('\n')
+      for(let line of lines) {
+        html += currentIndent + String(line) + '\n'
+      }
+    }
   }
 
   // Decrease indent, if any left:
@@ -125,8 +130,7 @@ function tagToHtml(tag, currentIndent='', indent='  ') {
   // Tag END (closing-tag):
 
   if(selfClosingTagNames.indexOf(tagName) == -1) {
-    if(tagName != 'textarea' && tagName != 'pre' &&
-      (tagName != 'script' && content != '') ) {
+    if(tagName != 'textarea' && tagName != 'pre') {
       html += currentIndent
     }
     html += '</' + tagName + '>\n'
