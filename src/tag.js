@@ -114,13 +114,10 @@ function tagToHtml(tag, currentIndent='', indent='  ') {
     // TODO  replace < with &lt;
     if(tagName == 'textarea' || tagName == 'pre') html += String(content)
     else {
-      let lines = content.split('\n')
-      for(let line of lines) {
-        if(tagName != 'script' && tagName != 'style') {
-          html += currentIndent
-        }
-        html += String(line) + '\n'
+      if(tagName != 'script' && tagName != 'style') {
+        html += currentIndent
       }
+      html += String(content) + '\n'
     }
   }
 
