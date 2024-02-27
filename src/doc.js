@@ -28,27 +28,25 @@ const addTags = (doc, stylePaths, scriptPaths) => {
     doc.content[0].content[0].addTag('style', {},
 `@media (prefers-color-scheme: dark) {
 
-      :root {
+  :root {
 
-        background: #272727;
+    background: #272727;
 
-        color: #f9ee99
+    color: #f9ee99
 
-      }
+  }
 
-      input,
+  input,
 
-      textarea {
+  textarea {
 
-        background: inherit;
+    background: inherit;
 
-        color: inherit;
+    color: inherit;
 
-      }
+  }
 
-    }`
-
-    );
+}`  );
 
   }
 
