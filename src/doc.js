@@ -17,9 +17,39 @@ const addTags = (doc, stylePaths, scriptPaths) => {
     content: 'width=device-width, initial-scale=1.0'
   });
 
-  tag.addTag('title', {}, doc.name)
+  tag.addTag('title', {}, doc.name[0].toUpperCase() + doc.name.slice(1) )
 
   tag = doc.content[0]
+
+  if(doc.emergencyStyle) {
+
+    doc.content[0].content[0].addTag('style', {},
+`@media (prefers-color-scheme: dark) {
+
+      :root {
+
+        background: #272727;
+
+        color: #f9ee99
+
+      }
+
+      input,
+
+      textarea {
+
+        background: inherit;
+
+        color: inherit;
+
+      }
+
+    }`
+
+    );
+
+  }
+
 
   for(let i in stylePaths) {
     doc.content[0].content[0].addTag('link', {
@@ -91,6 +121,8 @@ class Doc extends Tag {
     this.filePath = null
 
     this.body = null
+
+    this.emergencyStyle = true // regard system theme is dark mode
 
     iniDoc(this, stylePaths, scriptPaths)
 
