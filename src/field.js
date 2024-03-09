@@ -48,16 +48,6 @@ class Field extends Tag {
 
     this.type = type
 
-/*
-    if(this.tagName == 'select' && value) {
-
-      for(let item of value) {
-
-        this.addTag('option', {}, item)
-      }
-    }
-*/
-
   }
 
 }
