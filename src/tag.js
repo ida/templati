@@ -1,8 +1,11 @@
 const fs = require('fs')
 
+function insertItem(array, item, insertPos) {
+  array.splice(insertPos, 0, item)
+}
 
 
-function addTag(parentTag, tagName, attr={}, content=[]) {
+function addTag(parentTag, tagName, attr={}, content=[], pos=-1) {
 // Append new tag to 'parentTag.content'.
 // If 'parentTag.content' already contains text, create a wrapper-tag
 // around the text before appending the new tag, so you can address
@@ -20,7 +23,9 @@ function addTag(parentTag, tagName, attr={}, content=[]) {
 
   let tag = new Tag(tagName, attr, content)
 
-  parentTag.content.push(tag)
+  if(pos==-1) pos=parentTag.content.length
+
+  insertItem(parentTag.content, tag, pos)
 
   return tag
 
@@ -29,7 +34,6 @@ function addTag(parentTag, tagName, attr={}, content=[]) {
 
 function tagToHtmlFile(tag, filePath) {
   fs.writeFileSync(filePath, tagToHtml(tag))
-  console.log('Wrote', filePath)
 }
 
 
@@ -149,13 +153,13 @@ class Tag {
     this.tagName = tagName, // E.g. 'body', 'div', etc.
     this.attr = attr,      //  Key-value-pairs of tag-attributes.
     this.content = content//   A string for text, or an array of child-tag(s),
-                         //    or a function which returns a string or array.
+    this.pos             //    or a function which returns a string or array.
   }
 
 
-  addTag(tagName, attr={}, content=[]) {
+  addTag(tagName, attr={}, content=[], pos=-1) {
     if(tagName instanceof Tag) this.content.push(tagName)
-    else return addTag(this, tagName, attr, content)
+    else return addTag(this, tagName, attr, content, pos)
   }
 
 
